@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculate your Equated Monthly Installment (EMI) for loans using our free EMI Calculator tool. Simple, fast, and accurate.">
+    <meta name="keywords" content="EMI calculator, loan EMI, EMI calculation, loan calculator, free online tool">
+    <meta name="author" content="Tools Hub">
+    <meta property="og:title" content="EMI Calculator - Tools Hub">
+    <meta property="og:description" content="Calculate your Equated Monthly Installment (EMI) for loans using our free EMI Calculator tool. Simple, fast, and accurate.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.toolshub.com/emi-calculator">
+    <meta property="og:image" content="https://www.toolshub.com/images/emi-calculator-og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="EMI Calculator - Tools Hub">
+    <meta name="twitter:description" content="Calculate your Equated Monthly Installment (EMI) for loans using our free EMI Calculator tool. Simple, fast, and accurate.">
+    <meta name="twitter:image" content="https://www.toolshub.com/images/emi-calculator-twitter.jpg">
+    <link rel="canonical" href="https://www.toolshub.com/emi-calculator">
+    <title>EMI Calculator - Tools Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1d4ed8;
+            --background: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.5;
+            background-color: var(--background);
+            color: var(--text-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: var(--primary-color);
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .tool-card {
+            background: var(--card-bg);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .tool-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-card label {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            text-align: left;
+        }
+
+        .tool-card input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tool-card button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .tool-card button:hover {
+            background: var(--secondary-color);
+        }
+
+        .result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: #f1f5f9;
+            border-radius: 0.5rem;
+            text-align: left;
+        }
+
+        .result h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result p {
+            font-size: 1rem;
+            margin: 0.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            background: var(--primary-color);
+            color: white;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .tool-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>EMI Calculator</h1>
+        <p>Calculate your Equated Monthly Installment (EMI) for loans</p>
+    </header>
+
+    <div class="container">
+        <div class="tool-card">
+            <h2>Enter Loan Details</h2>
+            <label for="loanAmount">Loan Amount (₹):</label>
+            <input type="number" id="loanAmount" placeholder="e.g., 500000">
+            <label for="interestRate">Interest Rate (% per annum):</label>
+            <input type="number" id="interestRate" placeholder="e.g., 8.5">
+            <label for="loanTenure">Loan Tenure (in years):</label>
+            <input type="number" id="loanTenure" placeholder="e.g., 5">
+            <button id="calculateBtn">Calculate EMI</button>
+
+            <div class="result" id="result" style="display: none;">
+                <h3>Your EMI:</h3>
+                <p><strong>Monthly EMI:</strong> ₹<span id="emiAmount">-</span></p>
+                <p><strong>Total Interest:</strong> ₹<span id="totalInterest">-</span></p>
+                <p><strong>Total Payment:</strong> ₹<span id="totalPayment">-</span></p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Tools Hub. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Calculate EMI
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resultDiv = document.getElementById('result');
+        const emiAmountSpan = document.getElementById('emiAmount');
+        const totalInterestSpan = document.getElementById('totalInterest');
+        const totalPaymentSpan = document.getElementById('totalPayment');
+
+        calculateBtn.addEventListener('click', () => {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value);
+            const loanTenure = parseFloat(document.getElementById('loanTenure').value);
+
+            if (isNaN(loanAmount) || isNaN(interestRate) || isNaN(loanTenure)) {
+                alert('Please enter valid loan details.');
+                return;
+            }
+
+            const monthlyInterestRate = interestRate / 12 / 100;
+            const numberOfPayments = loanTenure * 12;
+
+            // EMI Formula
+            const emi =
+                (loanAmount *
+                    monthlyInterestRate *
+                    Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+                (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
+
+            const totalPayment = emi * numberOfPayments;
+            const totalInterest = totalPayment - loanAmount;
+
+            emiAmountSpan.textContent = emi.toFixed(2);
+            totalInterestSpan.textContent = totalInterest.toFixed(2);
+            totalPaymentSpan.textContent = totalPayment.toFixed(2);
+
+            resultDiv.style.display = 'block';
+        });
+    </script>
+</body>
+</html>
